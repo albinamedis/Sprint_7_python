@@ -11,3 +11,8 @@ data_order = {
     "deliveryDate": "2020-06-06",
     "comment": "Saske, come back to Konoha"
 }
+
+message_code_400 = 'Недостаточно данных для создания учетной записи'
+message_code_409 = 'Этот логин уже используется. Попробуйте другой.'
+message_code_404 = 'Учетная запись не найдена'
+message_code_400_login = 'Недостаточно данных для входа'

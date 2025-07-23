@@ -1,6 +1,7 @@
 import pytest
 from methods.courier_methods import CourierMethods
 import allure
+from data import message_code_400, message_code_409
 
 class TestCreateCouriers:
 
@@ -17,8 +18,7 @@ class TestCreateCouriers:
         courier_methods.post_courier(payload)
         # создания второго курьера с теми же значениями
         response = courier_methods.post_courier(payload)
-        assert response.status_code == 409 and response.json() == {"code": 409,
-            "message": "Этот логин уже используется. Попробуйте другой."}
+        assert response.status_code == 409 and response.json()["message"] == message_code_409
 
 
     @allure.title('Проверка создания курьера без пароля/логина')
@@ -27,7 +27,7 @@ class TestCreateCouriers:
             payload = {"login": login, "password": password, "firstName": first_name}
             payload.pop(missing_field)
             response = courier_methods.post_courier(payload)
-            assert response.status_code == 400 and response.json()["message"] == "Недостаточно данных для создания учетной записи"
+            assert response.status_code == 400 and response.json()["message"] == message_code_400
 
 
     @allure.title('Создание курьера по логину и паролю')

@@ -1,6 +1,7 @@
 import pytest
 from methods.courier_methods import CourierMethods
 import allure
+from data import message_code_404, message_code_400_login
 
 class TestAuthCouriers:
 
@@ -23,12 +24,10 @@ class TestAuthCouriers:
     def test_auth_couriers_without_login(self, courier_methods, password):
         payload = {"password": password}
         response = courier_methods.post_courier_login(payload)
-        assert response.status_code == 400 and response.json() == {"code": 400,
-            "message": "Недостаточно данных для входа"}
+        assert response.status_code == 400 and response.json()['message'] == message_code_400_login
         
     @allure.title('Авторизация не существующего курьера в системе')
     def test_login_couriers_not_found(self, courier_methods, login, password):
         payload = {"login": login, "password": password}
         response = courier_methods.post_courier_login(payload)
-        assert response.status_code == 404 and response.json() == {"code": 404,
-            "message": "Учетная запись не найдена"}
+        assert response.status_code == 404 and response.json()['message'] == message_code_404
