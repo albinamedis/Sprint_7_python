@@ -21,3 +21,8 @@ class CourierMethods:
     def post_courier_login(self, params):
         response = requests.post(f"{BASE_URL}courier/login", data = params)
         return response
+    
+    @allure.step("Удалить курьера")
+    def delete_courier(self, courier_id):
+        response = requests.delete(f"{BASE_URL}courier/{courier_id}")
+        return response
